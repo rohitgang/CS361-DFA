@@ -51,12 +51,12 @@ public class DFAState extends fa.State {
     /**
      * Sets the current state as the final state
      */
-    public void setFinalState(){ isFinal = True; }
+    public void setFinalState(){ isFinal = true; }
 
     /**
      * Sets the current state as the start state
      */
-    public void setStartState(){ isStart = True; }
+    public void setStartState(){ isStart = true; }
 
     /**
      * Returns a string representation of the state
