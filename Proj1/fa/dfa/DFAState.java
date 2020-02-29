@@ -12,23 +12,23 @@ public class DFAState extends fa.State {
     public DFAState(String name){
         this.name = name;
         this.nextStates = new HashSet<DFAState>();
-        this.nextTransition = 'N/A';
-        this.isFinal = False;
-        this.isStart = False;
+        this.nextTransition = "N/A";
+        this.isFinal = false;
+        this.isStart = false;
     }
     /**
      * Sets the states after transition
      * @param nextState
      */
-    public void setNext(Set<DFAState> nextStates){ this.nextStates = nestStates; }
+    public void setNext(Set<DFAState> nextStates){ this.nextStates = nextStates; }
 
     /**
      * Returns the state after transition
      * @return nextState : State object
      */
-    public State getNext(String transition){
+    public DFAState getNext(String transition){
         DFAState ret = null;
-        for(Iterator<DFAState> it = DFAState.iterator(); it.hasNext();){
+        for(Iterator<DFAState> it = nextStates.iterator(); it.hasNext();){
             DFAState nextOne = it.next();
             ret = nextOne;
             if (transition == nextOne.getTransition()) break;
