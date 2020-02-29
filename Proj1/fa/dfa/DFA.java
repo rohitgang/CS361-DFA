@@ -35,13 +35,33 @@ public class DFA implements DFAInterface {
 
         String states = "Q = {" + Q.toString() + " }";
         String alphabet = "sigma= {" + Sigma.toString() + "}";
-        String transitions = "delta= \n\t\t" + "}";
+        String transitions = "delta= \n\t\t" + printTable();
         String strt = "q0 = " + Start.toString() + "}";
         String fin = "F = {" + Final.toString() + "}";
 
         // while
         return states + "\n" + alphabet + "\n" + transitions + "\n" + strt + "\n" + fin;
     }
+	
+	/**
+ 	* Prints the Transition Table
+ 	* @return str
+ 	*/ 
+	public String printTable(){
+		String str = "\t\t";
+		for(char lang: Sigma){
+			str += lang+"\t\t"; 
+		}
+		str += "\n\t\t";
+		for(DFAState targetState: Q){
+			str += targetState.getName()+"\t\t";
+			for (char lang: Sigma){
+				str += targetState.getNextWithTransition(lang).getName()+"\t\t";
+			}
+			str += "\n";
+		}
+		return str;
+	}
 
     /**
      * Simulates a DFA on input s to determine whether the DFA accepts s.
@@ -61,7 +81,7 @@ public class DFA implements DFAInterface {
      * @param onSymb the label of the transition
      * @return the sink state.
      */
-    public State getToState(DFAState from, char onSymb) {
+    public DFAState getToState(DFAState from, char onSymb) {
         return from.getNextWithTransition(onSymb);
     }
 
@@ -115,7 +135,7 @@ public class DFA implements DFAInterface {
      * 
      * @return a set of states that FA has
      */
-    public Set<? extends State> getStates() {
+    public Set<? extends DFAState> getStates() {
         return Q;
     }
 
@@ -124,7 +144,7 @@ public class DFA implements DFAInterface {
      * 
      * @return a set of final states that FA has
      */
-    public Set<? extends State> getFinalStates() {
+    public Set<? extends DFAState> getFinalStates() {
         return Final;
     }
 
@@ -133,7 +153,7 @@ public class DFA implements DFAInterface {
      * 
      * @return the start state of FA
      */
-    public State getStartState() {
+    public DFAState getStartState() {
         return Start;
     }
 
