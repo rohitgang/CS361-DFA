@@ -1,0 +1,9 @@
+R
+S
+T U
+SeT S0U S1U U1S U0R T0U T1U TeR R0U R1T
+00
+1
+0
+e
+101
