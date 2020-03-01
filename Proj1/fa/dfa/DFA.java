@@ -98,7 +98,7 @@ public class DFA implements DFAInterface {
     public void addStartState(String name) {
         Start = new DFAState(name);
         Q.add(Start);
-        Start.setStartState();
+        Start.setStartState(true);
     }
 
     /**
@@ -198,9 +198,9 @@ public class DFA implements DFAInterface {
 
         DFA dfa = new DFA();
 
-        for (DFAState newOne : Q) {
-            DFAState newOne =  //new DFAState(targetState.getName());
-//            newOne = targetState;
+        for (DFAState targeState : Q) {
+            DFAState newOne = targeState.deepCopy();// new DFAState(targetState.getName());
+            // newOne = targetState;
             if (newOne.getFinal() == false) {
                 newOne.setFinal(true);
                 dfa.addState(newOne);
