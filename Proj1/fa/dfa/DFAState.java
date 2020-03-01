@@ -54,7 +54,7 @@ public class DFAState extends fa.State {
 	 */
 	public DFAState getNextWithTransition(char transition) {
 		DFAState ret = nextStateWithTransition.get(transition);
-		if (ret.equals(null))
+		if (ret == null)
 			return null;
 		else
 			return ret;
@@ -67,7 +67,7 @@ public class DFAState extends fa.State {
 	 * @return transition : char representing the transition
 	 */
 	public int addStateWithTransition(DFAState state, char transition) {
-		if (nextStateWithTransition.get(transition).equals(null)) {
+		if (nextStateWithTransition.get(transition)== (null)) {
 			this.nextStateWithTransition.put(transition, state);
 			return 1;
 		} else

@@ -5,9 +5,8 @@ import java.util.*;
 import fa.dfa.DFAInterface;
 
 /**
- * CS361 Project 1
- * Implementation of a DFA by extending
- * given interfaces 
+ * CS361 Project 1 Implementation of a DFA by extending given interfaces
+ * 
  * @author Andre Maldonado, Steven Kim, Rohit Gangurde
  */
 public class DFA implements DFAInterface {
@@ -74,7 +73,7 @@ public class DFA implements DFAInterface {
         DFAState current = Start;
         for (int i = 0; i < s.length(); i++) {
             DFAState next = current.getNextWithTransition(s.charAt(i));
-            if (next.equals(null)) {
+            if (next == (null)) {
                 return false;
             }
             current = next;
@@ -138,10 +137,17 @@ public class DFA implements DFAInterface {
     public void addTransition(String fromState, char onSymb, String toState) {
         Sigma.add(onSymb);
         for (DFAState state : Q) {
-            DFAState nextOne = state.getNextWithTransition(onSymb);
-            if (nextOne.equals(null) || !nextOne.getName().equals(toState)) {
-                state.addStateWithTransition(new DFAState(toState), onSymb);
-                break;
+            if (state.getName().equals(fromState)) {
+                DFAState nextOne = state.getNextWithTransition(onSymb);
+                if (nextOne == (null) || !nextOne.getName().equals(toState)) {
+                    for (DFAState state1 : Q) {
+                        if (state1.getName().equals(toState)) {
+                            state.addStateWithTransition(state1, onSymb);
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
         }
     }
@@ -192,11 +198,13 @@ public class DFA implements DFAInterface {
 
         DFA dfa = new DFA();
 
-        for (DFAState targetState : Q) {
-            DFAState newOne = new DFAState(targetState.getName());
-            newOne = targetState;
+        for (DFAState newOne : Q) {
+            DFAState newOne =  //new DFAState(targetState.getName());
+//            newOne = targetState;
             if (newOne.getFinal() == false) {
                 newOne.setFinal(true);
+                dfa.addState(newOne);
+                newOne.setFinal(false);
             } else {
                 newOne.setFinal(false);
             }
