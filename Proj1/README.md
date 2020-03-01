@@ -21,3 +21,9 @@ Run the class with this command and input file p1tc1.txt :
 $ java fa.dfa.DFADriver ./tests/p1tc1.txt
 
 ## Discussion
+
+
+## Testing
+In order to test the program, I wrote three tests with very particular cases. My first test (p1tc4.txt)
+was the same as test 1 except that 'a' was both a start state and final state, while 'b' was just a state. 
+This test was able to catch an error in our code where we created an extra duplicate state in set 'Q', which then threw an IndexOutOfBoundsException. My second test was 
