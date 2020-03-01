@@ -22,6 +22,12 @@ $ java fa.dfa.DFADriver ./tests/p1tc1.txt
 
 ## Discussion
 
+We had several discussions on handling the empty string. We decided to handle it two ways :
+    * If the input string is only one element and it is 'e', we check if the start state is the final state.
+    * If the input string has more than one element and we encounter a 'e', we skip over it.
+
+We also discussed on the design of the program. We decided to stick with the implementation where the DFAState object would contain a hashMap with the transition that 
+state would accept as the key and the state it transitions to as the value. 
 
 ## Testing
 In order to test the program, we wrote three tests with very particular cases. Out first test (p1tc4.txt)
