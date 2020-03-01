@@ -1,8 +1,9 @@
 package fa.dfa;
 
 import java.util.*;
+import fa.State;
 
-public class DFAState extends fa.State {
+public class DFAState implements fa.State {
 
 	protected String name;
 	private Set<DFAState> nextStates;
