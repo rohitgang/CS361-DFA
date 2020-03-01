@@ -1,10 +1,7 @@
 package fa.dfa;
 
 import java.util.*;
-
-
-
-import fa.State;
+// import fa.State;
 import fa.dfa.DFAInterface;
 
 /**
@@ -42,26 +39,27 @@ public class DFA implements DFAInterface {
         // while
         return states + "\n" + alphabet + "\n" + transitions + "\n" + strt + "\n" + fin;
     }
-	
-	/**
- 	* Prints the Transition Table
- 	* @return str
- 	*/ 
-	public String printTable(){
-		String str = "\t\t";
-		for(char lang: Sigma){
-			str += lang+"\t\t"; 
-		}
-		str += "\n\t\t";
-		for(DFAState targetState: Q){
-			str += targetState.getName()+"\t\t";
-			for (char lang: Sigma){
-				str += targetState.getNextWithTransition(lang).getName()+"\t\t";
-			}
-			str += "\n";
-		}
-		return str;
-	}
+
+    /**
+     * Prints the Transition Table
+     * 
+     * @return str
+     */
+    public String printTable() {
+        String str = "\t\t";
+        for (char lang : Sigma) {
+            str += lang + "\t\t";
+        }
+        str += "\n\t\t";
+        for (DFAState targetState : Q) {
+            str += targetState.getName() + "\t\t";
+            for (char lang : Sigma) {
+                str += targetState.getNextWithTransition(lang).getName() + "\t\t";
+            }
+            str += "\n";
+        }
+        return str;
+    }
 
     /**
      * Simulates a DFA on input s to determine whether the DFA accepts s.
@@ -70,7 +68,17 @@ public class DFA implements DFAInterface {
      * @return true if s in the language of the DFA and false otherwise
      */
     public boolean accepts(String s) {
-
+        DFAState current = Start;
+        for (int i = 0; i < s.length(); i++) {
+            DFAState next = current.getNextWithTransition(s.charAt(i));
+            if (next.equals(null)) {
+                return false;
+            }
+            current = next;
+        }
+        if (current.getFinal()) {
+            return true;
+        }
         return false;
     }
 
@@ -101,6 +109,10 @@ public class DFA implements DFAInterface {
         Q.add(newState);
     }
 
+    public void addState(DFAState state) {
+        Q.add(state);
+    }
+
     /**
      * Adds a final state to the DFA
      * 
@@ -121,6 +133,7 @@ public class DFA implements DFAInterface {
      * @param toState   is the label of the state where the transition ends
      */
     public void addTransition(String fromState, char onSymb, String toState) {
+        Sigma.add(onSymb);
         for (DFAState state : Q) {
             DFAState nextOne = state.getNextWithTransition(onSymb);
             if (nextOne.equals(null) || !nextOne.getName().equals(toState)) {
@@ -135,7 +148,7 @@ public class DFA implements DFAInterface {
      * 
      * @return a set of states that FA has
      */
-    public Set<? extends DFAState> getStates() {
+    public Set<DFAState> getStates() {
         return Q;
     }
 
@@ -144,7 +157,7 @@ public class DFA implements DFAInterface {
      * 
      * @return a set of final states that FA has
      */
-    public Set<? extends DFAState> getFinalStates() {
+    public Set<DFAState> getFinalStates() {
         return Final;
     }
 
@@ -173,6 +186,27 @@ public class DFA implements DFAInterface {
      * @return a copy of this DFA
      */
     public DFA complement() {
-        return null;
+
+        DFA dfa = new DFA();
+
+        for (DFAState targetState : Q) {
+            DFAState newOne = new DFAState(targetState.getName());
+            newOne = targetState;
+            if (newOne.getFinal() == false) {
+                newOne.setFinal(true);
+            } else {
+                newOne.setFinal(false);
+            }
+            dfa.addState(newOne);
+
+        }
+        dfa.Sigma = this.Sigma;
+        dfa.Transition = this.Transition;
+        dfa.Start = this.Start;
+        for (DFAState state : dfa.Q) {
+            if (state.getFinal())
+                dfa.Final.add(state);
+        }
+        return dfa;
     }
 }

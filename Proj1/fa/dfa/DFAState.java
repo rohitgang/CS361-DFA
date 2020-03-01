@@ -3,7 +3,7 @@ package fa.dfa;
 import java.util.*;
 import fa.State;
 
-public class DFAState implements fa.State {
+public class DFAState extends fa.State {
 
 	protected String name;
 	private Set<DFAState> nextStates;
@@ -117,5 +117,13 @@ public class DFAState implements fa.State {
 	 */
 	public String toString() {
 		return name;
+	}
+
+	public boolean getFinal() {
+		return isFinal;
+	}
+
+	public void setFinal(boolean bool) {
+		isFinal = bool;
 	}
 }
