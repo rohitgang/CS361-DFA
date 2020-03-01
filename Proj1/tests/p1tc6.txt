@@ -1,0 +1,10 @@
+1 2
+0
+
+0b0 0a1 1a1 1b2 2a1 2b0
+bbaba
+babb
+abb
+b
+a
+e
