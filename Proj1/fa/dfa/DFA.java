@@ -2,7 +2,7 @@ package fa.dfa;
 
 import java.util.*;
 
-import com.oracle.jrockit.jfr.Transition;
+
 
 import fa.State;
 import fa.dfa.DFAInterface;
