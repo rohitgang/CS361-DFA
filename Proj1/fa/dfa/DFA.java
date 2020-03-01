@@ -9,7 +9,8 @@ import fa.dfa.DFAInterface;
 
 /**
  * CS361 Project 1
- * 
+ * Implementation of a DFA by extending
+ * given interfaces 
  * @author Andre Maldonado, Steven Kim, Rohit Gangurde
  */
 public class DFA implements DFAInterface {
