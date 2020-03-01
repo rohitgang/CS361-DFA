@@ -19,11 +19,6 @@ public class DFA implements DFAInterface {
     // Set<DFAState> Q, Set<Character> Sigma, Set<Character> Transition, DFAState
     // Start, Set<DFAState> Final
     public DFA() {
-        // this.Q = Q;
-        // this.Sigma = Sigma;
-        // this.Transition = Transition;
-        // this.Start = Start;
-        // this.Final = Final;
         Q = new HashSet<DFAState>();
         Sigma = new HashSet<Character>();
         Transition = new HashSet<Character>();
@@ -38,7 +33,6 @@ public class DFA implements DFAInterface {
         String strt = "q0 = {" + Start.toString() + "}";
         String fin = "F = {" + Final.toString() + "}";
 
-        // while
         return states + "\n" + alphabet + "\n" + transitions + "\n" + strt + "\n" + fin;
     }
 
