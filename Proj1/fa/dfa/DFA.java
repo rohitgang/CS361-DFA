@@ -35,7 +35,7 @@ public class DFA implements DFAInterface {
         String states = "Q = {" + Q.toString() + " }";
         String alphabet = "sigma= {" + Sigma.toString() + "}";
         String transitions = "delta= \n\t\t" + printTable();
-        String strt = "q0 = " + Start.toString() + "}";
+        String strt = "q0 = {" + Start.toString() + "}";
         String fin = "F = {" + Final.toString() + "}";
 
         // while
@@ -52,9 +52,9 @@ public class DFA implements DFAInterface {
         for (char lang : Sigma) {
             str += lang + "\t\t";
         }
-        str += "\n\t\t";
+        str += "\n";
         for (DFAState targetState : Q) {
-            str += targetState.getName() + "\t\t";
+            str += "\t\t" + targetState.getName() + "\t\t";
             for (char lang : Sigma) {
                 str += targetState.getNextWithTransition(lang).getName() + "\t\t";
             }
@@ -71,15 +71,25 @@ public class DFA implements DFAInterface {
      */
     public boolean accepts(String s) {
         DFAState current = Start;
-        for (int i = 0; i < s.length(); i++) {
-            DFAState next = current.getNextWithTransition(s.charAt(i));
-            if (next == (null)) {
-                return false;
+        if (s.length() == 1 && s.equals("e")) {
+            for (DFAState state : Final) {
+                if (current.getName().equals(state.getName()))
+                    return true;
             }
-            current = next;
-        }
-        if (current.getFinal()) {
-            return true;
+        } else {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == 'e')
+                    continue;
+                DFAState next = current.getNextWithTransition(s.charAt(i));
+                if (next == (null)) {
+                    return false;
+                }
+                current = next;
+            }
+            for (DFAState state : Final) {
+                if (current.getName().equals(state.getName()))
+                    return true;
+            }
         }
         return false;
     }
@@ -122,6 +132,9 @@ public class DFA implements DFAInterface {
      */
     public void addFinalState(String name) {
         DFAState FinalS = new DFAState(name);
+        for (DFAState state : Q) {
+
+        }
         Final.add(FinalS);
         FinalS.setFinalState();
         Q.add(FinalS);
@@ -203,8 +216,7 @@ public class DFA implements DFAInterface {
             // newOne = targetState;
             if (newOne.getFinal() == false) {
                 newOne.setFinal(true);
-                dfa.addState(newOne);
-                newOne.setFinal(false);
+
             } else {
                 newOne.setFinal(false);
             }
