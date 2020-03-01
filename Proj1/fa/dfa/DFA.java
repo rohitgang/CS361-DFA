@@ -21,7 +21,11 @@ public class DFA implements DFAInterface {
         Transition = new HashSet<Character>();
         Final = new HashSet<DFAState>();
     }
-    
+    /**
+     * Converts the DFAState into a string representation
+     * @param s
+     * @return ret
+     */
     public String setStateToString(Set<DFAState> s)
     {
     	String ret = " ";
@@ -32,7 +36,11 @@ public class DFA implements DFAInterface {
     		
     	return ret;
     }
-    
+    /**
+     * Converts a set of characters into a string representation
+     * @param s
+     * @return ret
+     */
     public String setToString(Set<Character> s)
     {
     	String ret = " ";
@@ -44,7 +52,9 @@ public class DFA implements DFAInterface {
     	return ret;
     		
     }
-
+    /**
+     * The toString method for the DFA class's string representation
+     */
     public String toString() {
         String states = "Q = {" + setStateToString(Q) + "}";
         String alphabet = "Sigma= {" + setToString(Sigma) + "}";
@@ -117,7 +127,10 @@ public class DFA implements DFAInterface {
     public DFAState getToState(DFAState from, char onSymb) {
         return from.getNextWithTransition(onSymb);
     }
-
+    /**
+     * Sets the state with the name as label as start state
+     * @param name
+     */
     public void addStartState(String name) {
     	for (DFAState state : Q) {
             if (state.getName().equals(name)) {
@@ -142,7 +155,10 @@ public class DFA implements DFAInterface {
         DFAState newState = new DFAState(name);
         Q.add(newState);
     }
-
+    /**
+     * Adds a non-final, not initial state to the DFA instance using the state object
+     * @param state
+     */
     public void addState(DFAState state) {
         Q.add(state);
     }
@@ -163,7 +179,6 @@ public class DFA implements DFAInterface {
         Final.add(FinalS);
         FinalS.setFinalState(true);
         Q.add(FinalS);
-
     }
 
     /**
