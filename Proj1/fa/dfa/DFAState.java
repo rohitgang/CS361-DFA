@@ -102,8 +102,8 @@ public class DFAState extends fa.State {
 	/**
 	 * Sets the current state as the start state
 	 */
-	public void setStartState() {
-		isStart = true;
+	public void setStartState(boolean bool) {
+		isStart = bool;
 	}
 
 	public String getName() {
@@ -125,5 +125,21 @@ public class DFAState extends fa.State {
 
 	public void setFinal(boolean bool) {
 		isFinal = bool;
+	}
+
+	public DFAState deepCopy(){
+		DFAState state = new DFAState(this.name);
+		state.isFinal = this.isFinal;
+		state.isStart = this.isStart;
+		state.nextTransition = this.nextTransition;
+		Set<Character> keys = this.nextStateWithTransition.keySet();
+		for(Character key : keys){
+			state.nextStateWithTransition.put(key, this.nextStateWithTransition.get(key));
+		}
+		for(DFAState otherOne: nextStates){
+			state.nextStates.add(otherOne);
+		}
+
+		return state;
 	}
 }
