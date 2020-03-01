@@ -139,7 +139,7 @@ public class DFAState extends fa.State {
 		for(DFAState otherOne: nextStates){
 			state.nextStates.add(otherOne);
 		}
-
+//testing
 		return state;
 	}
 }
