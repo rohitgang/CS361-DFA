@@ -3,7 +3,7 @@ package fa.dfa;
 import java.util.*;
 import fa.State;
 
-public class DFAState implements fa.State {
+public class DFAState extends State {
 
 	protected String name;
 	private Set<DFAState> nextStates;

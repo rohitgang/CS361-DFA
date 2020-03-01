@@ -8,6 +8,8 @@ import fa.State;
 import fa.dfa.DFAInterface;
 
 /**
+ * CS361 Project 1
+ * 
  * @author Andre Maldonado, Steven Kim, Rohit Gangurde
  */
 public class DFA implements DFAInterface {
