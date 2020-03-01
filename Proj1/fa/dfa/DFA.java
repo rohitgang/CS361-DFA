@@ -133,11 +133,15 @@ public class DFA implements DFAInterface {
     public void addFinalState(String name) {
         DFAState FinalS = new DFAState(name);
         for (DFAState state : Q) {
-
+            if (state.getName().equals(name)) {
+                state.setFinalState(true);
+                return;
+            }
         }
         Final.add(FinalS);
-        FinalS.setFinalState();
+        FinalS.setFinalState(true);
         Q.add(FinalS);
+
     }
 
     /**
@@ -214,11 +218,11 @@ public class DFA implements DFAInterface {
         for (DFAState targeState : Q) {
             DFAState newOne = targeState.deepCopy();// new DFAState(targetState.getName());
             // newOne = targetState;
-            if (newOne.getFinal() == false) {
-                newOne.setFinal(true);
+            if (newOne.isFinal() == false) {
+                newOne.setFinalState(true);
 
             } else {
-                newOne.setFinal(false);
+                newOne.setFinalState(false);
             }
             dfa.addState(newOne);
 
@@ -227,7 +231,7 @@ public class DFA implements DFAInterface {
         dfa.Transition = this.Transition;
         dfa.Start = this.Start;
         for (DFAState state : dfa.Q) {
-            if (state.getFinal())
+            if (state.isFinal())
                 dfa.Final.add(state);
         }
         return dfa;
