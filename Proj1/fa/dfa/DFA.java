@@ -106,6 +106,14 @@ public class DFA implements DFAInterface {
     }
 
     public void addStartState(String name) {
+    	for (DFAState state : Q) {
+            if (state.getName().equals(name)) {
+                state.setStartState(true);
+                Start = state;
+                return;
+            }
+        }
+    	
         Start = new DFAState(name);
         Q.add(Start);
         Start.setStartState(true);
@@ -117,6 +125,7 @@ public class DFA implements DFAInterface {
      * @param name is the label of the state
      */
     public void addState(String name) {
+    	
         DFAState newState = new DFAState(name);
         Q.add(newState);
     }
