@@ -3,57 +3,37 @@ package fa.dfa;
 import java.util.*;
 import fa.State;
 
+/**
+ * DFAState class inherits State class. Contains all the attributes of a state class.
+ * @author Rohit Gangurde,
+ */
 public class DFAState extends fa.State {
 
 	protected String name;
-	private Set<DFAState> nextStates;
-	private Hashtable<Character, DFAState> nextStateWithTransition;
-	private char nextTransition;
+	private Hashtable<Character, DFAState> stateMap;
+	private char transition;
 	private Boolean isFinal;
 	private Boolean isStart;
 
+    /**
+     * Constructor to initialize the instance variables
+     * @param name : label of the state
+     */
 	public DFAState(String name) {
 		this.name = name;
-		this.nextStates = new HashSet<DFAState>();
-		this.nextStateWithTransition = new Hashtable<Character, DFAState>();
-		this.nextTransition = 'n';
+		this.stateMap= new Hashtable<Character, DFAState>();
+		this.transition = 'n';
 		this.isFinal = false;
 		this.isStart = false;
 	}
 
 	/**
-	 * Sets the states after transition
-	 * 
-	 * @param nextState
-	 */
-	public void setNext(Set<DFAState> nextStates) {
-		this.nextStates = nextStates;
-	}
-
-	/**
-	 * Returns the state after transition
-	 * 
-	 * @return nextState : State object
-	 */
-	public DFAState getNext(char transition) {
-		DFAState ret = null;
-		for (Iterator<DFAState> it = nextStates.iterator(); it.hasNext();) {
-			DFAState nextOne = it.next();
-			ret = nextOne;
-			if (transition == nextOne.getTransition())
-				break;
-		}
-		return ret;
-	}
-
-	/**
-	 * Returns the next state given the transition
-	 * 
+	 * Returns the next state provided the transition
 	 * @param transition : char representing the transition
-	 * @return ret : next state if found, -1 otherwise
+	 * @return ret : next state if found, null otherwise
 	 */
 	public DFAState getNextWithTransition(char transition) {
-		DFAState ret = nextStateWithTransition.get(transition);
+		DFAState ret = stateMap.get(transition);
 		if (ret == null)
 			return null;
 		else
@@ -61,14 +41,14 @@ public class DFAState extends fa.State {
 	}
 
 	/**
-	 * Adds the next state to the nextStateWithTransition Dictionary
+	 * Adds the next state to the stateMap Dictionary
 	 * 
 	 * @param state : DFAState object to add with the corresponding transition
 	 * @return transition : char representing the transition
 	 */
 	public int addStateWithTransition(DFAState state, char transition) {
-		if (nextStateWithTransition.get(transition)== (null)) {
-			this.nextStateWithTransition.put(transition, state);
+		if (stateMap.get(transition)== (null)) {
+			this.stateMap.put(transition, state);
 			return 1;
 		} else
 			return -1;
@@ -80,23 +60,16 @@ public class DFAState extends fa.State {
 	 * @param transition
 	 */
 	public void setTransition(char transition) {
-		nextTransition = transition;
+		this.transition = transition;
 	}
 
 	/**
 	 * Gets the transition string of the current state
 	 * 
-	 * @return nextTransition
+	 * @return trtransition
 	 */
 	public char getTransition() {
-		return nextTransition;
-	}
-
-	/**
-	 * Sets the current state as the final state
-	 */
-	public void setFinalState() {
-		isFinal = true;
+		return this.transition;
 	}
 
 	/**
@@ -105,11 +78,26 @@ public class DFAState extends fa.State {
 	public void setStartState(boolean bool) {
 		isStart = bool;
 	}
-
+	/**
+	 * Returns if the state is Final
+	 * @return isFinal
+	 */
+	public boolean isFinal() {
+		return isFinal;
+	}
+	/**
+	 * Sets the current state's isFinal variable as bool
+	 * @param bool
+	 */
+	public void setFinalState(boolean bool) {
+		isFinal = bool;
+	}
+	/**
+	 * Returns the label of the state
+	 */
 	public String getName() {
 		return name;
 	}
-
 	/**
 	 * Returns a string representation of the state
 	 * 
@@ -118,28 +106,19 @@ public class DFAState extends fa.State {
 	public String toString() {
 		return name;
 	}
-
-	public boolean getFinal() {
-		return isFinal;
-	}
-
-	public void setFinal(boolean bool) {
-		isFinal = bool;
-	}
-
+	/**
+	 * Creates a deepcopy of the current state object and returns it
+	 * @return state : deep copy DFAState
+	 */
 	public DFAState deepCopy(){
 		DFAState state = new DFAState(this.name);
 		state.isFinal = this.isFinal;
 		state.isStart = this.isStart;
-		state.nextTransition = this.nextTransition;
-		Set<Character> keys = this.nextStateWithTransition.keySet();
+		state.transition = this.transition;
+		Set<Character> keys = this.stateMap.keySet();
 		for(Character key : keys){
-			state.nextStateWithTransition.put(key, this.nextStateWithTransition.get(key));
+			state.stateMap.put(key, this.stateMap.get(key));
 		}
-		for(DFAState otherOne: nextStates){
-			state.nextStates.add(otherOne);
-		}
-//testing
 		return state;
 	}
 }
