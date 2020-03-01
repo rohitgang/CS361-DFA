@@ -1,7 +1,6 @@
 package fa.dfa;
 
 import java.util.*;
-// import fa.State;
 import fa.dfa.DFAInterface;
 
 /**
@@ -16,24 +15,44 @@ public class DFA implements DFAInterface {
     DFAState Start;
     Set<DFAState> Final;
 
-    // Set<DFAState> Q, Set<Character> Sigma, Set<Character> Transition, DFAState
-    // Start, Set<DFAState> Final
     public DFA() {
         Q = new HashSet<DFAState>();
         Sigma = new HashSet<Character>();
         Transition = new HashSet<Character>();
         Final = new HashSet<DFAState>();
     }
+    
+    public String setStateToString(Set<DFAState> s)
+    {
+    	String ret = " ";
+    	for(DFAState d: s)
+    	{
+    		ret += d.getName() + " ";
+    	}
+    		
+    	return ret;
+    }
+    
+    public String setToString(Set<Character> s)
+    {
+    	String ret = " ";
+    	for(Character c: s)
+    	{
+    		ret += c + " ";
+    	}
+    		
+    	return ret;
+    		
+    }
 
     public String toString() {
-
-        String states = "Q = {" + Q.toString() + " }";
-        String alphabet = "sigma= {" + Sigma.toString() + "}";
+        String states = "Q = {" + setStateToString(Q) + "}";
+        String alphabet = "Sigma= {" + setToString(Sigma) + "}";
         String transitions = "delta= \n\t\t" + printTable();
-        String strt = "q0 = {" + Start.toString() + "}";
-        String fin = "F = {" + Final.toString() + "}";
+        String strt = "q0 = " + Start.toString();
+        String fin = "F = {" + setStateToString(Final) + "}";
 
-        return states + "\n" + alphabet + "\n" + transitions + "\n" + strt + "\n" + fin;
+        return states + "\n" + alphabet + "\n" + transitions + "\n" + strt + "\n" + fin + "\n";
     }
 
     /**
