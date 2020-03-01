@@ -1,7 +1,6 @@
 package fa.dfa;
 
 import java.util.*;
-import fa.State;
 
 /**
  * DFAState class inherits State class. Contains all the attributes of a state class.
