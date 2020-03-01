@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * DFAState class inherits State class. Contains all the attributes of a state class.
- * @author Rohit Gangurde,
+ * @author Rohit Gangurde, Andre Maldonado, Steven Kim
  */
 public class DFAState extends fa.State {
 
